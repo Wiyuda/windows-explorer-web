@@ -59,7 +59,7 @@ describe('TreeNode.vue', () => {
       }
     });
 
-    const row = wrapper.find('div.flex.items-center.py-1');
+    const row = wrapper.find('div.flex.items-center.cursor-pointer');
     await row.trigger('click');
 
     expect(wrapper.emitted('select')).toBeTruthy();
