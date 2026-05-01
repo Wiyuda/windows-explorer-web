@@ -1,24 +1,23 @@
 import { Elysia, t } from "elysia";
 import { NodeService } from "../../application/node.service";
+import { sendSuccess, sendError } from "../../utils/response.helper";
 
 export const nodeRoutes = (nodeService: NodeService) => 
   new Elysia({ prefix: "/nodes" })
     .get("/tree", async ({ set }) => {
       try {
         const result = await nodeService.getTree();
-        return { success: true, data: result, message: "OK" };
+        return sendSuccess(result);
       } catch (err: any) {
-        set.status = 500;
-        return { success: false, data: null, message: err.message };
+        return sendError(set, err.message);
       }
     })
     .get("/search", async ({ query: { q }, set }) => {
       try {
         const result = await nodeService.search(q || "");
-        return { success: true, data: result, message: "OK" };
+        return sendSuccess(result);
       } catch (err: any) {
-        set.status = 500;
-        return { success: false, data: null, message: err.message };
+        return sendError(set, err.message);
       }
     }, {
       query: t.Object({
@@ -28,10 +27,10 @@ export const nodeRoutes = (nodeService: NodeService) =>
     .get("/:id/children", async ({ params: { id }, set }) => {
       try {
         const result = await nodeService.getChildren(id);
-        return { success: true, data: result, message: "OK" };
+        return sendSuccess(result);
       } catch (err: any) {
-        set.status = err.message === "Invalid ID format" ? 400 : 500;
-        return { success: false, data: null, message: err.message };
+        const status = err.message === "Invalid ID format" ? 400 : 500;
+        return sendError(set, err.message, status);
       }
     }, {
       params: t.Object({
