@@ -1,0 +1,12 @@
+{
+  "name": "windows-explorer-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:backend": "bun --cwd packages/backend dev",
+    "dev:frontend": "bun --cwd packages/frontend dev",
+    "dev": "bun --cwd packages/backend dev & bun --cwd packages/frontend dev"
+  }
+}
