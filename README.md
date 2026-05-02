@@ -50,10 +50,17 @@ The project is structured into distinct layers to ensure separation of concerns 
    bun install
    ```
 3. **Configure Environment**
-   Create `.env` in `packages/backend/`:
-   ```env
-   DATABASE_URL="postgresql://user:password@localhost:5432/explorer_db"
-   PORT=3000
+   
+   **Backend:**
+   Copy `.env-example` to `.env` in `packages/backend/` and adjust the database URL:
+   ```bash
+   cp packages/backend/.env-example packages/backend/.env
+   ```
+   
+   **Frontend:**
+   Copy `.env-example` to `.env` in `packages/frontend/` and adjust the API URL if necessary:
+   ```bash
+   cp packages/frontend/.env-example packages/frontend/.env
    ```
 
 ### Database Setup
